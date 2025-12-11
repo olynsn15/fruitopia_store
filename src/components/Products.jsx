@@ -75,7 +75,7 @@ const Products = ({ onNotification = () => {} }) => {
   }, [productData]);
 
   const showNotification = (msg) => {
-    if (typeof onNotification === 'function') {
+    if (typeof onNotification === "function") {
       onNotification(msg);
     }
   };
@@ -96,7 +96,8 @@ const Products = ({ onNotification = () => {} }) => {
             Our Products
           </h1>
           <p className="text-gray-500 text-sm sm:text-base md:text-lg">
-            Explore our wide range of fresh and delicious fruits, handpicked for you.
+            Explore our wide range of fresh and delicious fruits, handpicked for
+            you.
           </p>
         </div>
 
@@ -121,7 +122,9 @@ const Products = ({ onNotification = () => {} }) => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center -translate-y-full group-hover:translate-y-0 transition-all duration-300 bg-[#007E6E] bg-opacity-85 backdrop-blur-sm space-y-3 rounded-2xl sm:rounded-3xl">
                   <button
                     onClick={() => {
-                      addToCart({ ...item, quantity: 1 });
+                      const success = addToCart({ ...item, quantity: 1 });
+                      if (!success) return;
+
                       showNotification(
                         `${item.name} added to cart! (Rp ${getPrice(
                           item
@@ -146,7 +149,6 @@ const Products = ({ onNotification = () => {} }) => {
           ))}
         </div>
       </div>
-
     </>
   );
 };

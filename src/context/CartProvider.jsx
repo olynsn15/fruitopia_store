@@ -2,12 +2,14 @@ import React, { useState, useCallback, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import supabase from "../utils/supabase";
 import { useAuth } from "../hooks/useAuthHook";
+import LoginRequiredModal from "../components/LoginRequiredModal";
 
 export const CartProvider = ({ children }) => {
   const { user } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Load cart from Supabase or localStorage
   useEffect(() => {
@@ -98,23 +100,29 @@ export const CartProvider = ({ children }) => {
     }
   }, [cartItems, selectedItems, user]);
 
-  const addToCart = useCallback((item) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.id === item.id);
-
-      if (existingItem) {
-        // Jika item sudah ada, tambah quantity
-        return prevItems.map((i) =>
-          i.id === item.id
-            ? { ...i, quantity: i.quantity + (item.quantity || 1) }
-            : i
-        );
-      } else {
-        // Jika item baru, tambahkan ke cart
-        return [...prevItems, { ...item, quantity: item.quantity || 1 }];
+  const addToCart = useCallback(
+    (item) => {
+      if (!user) {
+        setShowLoginModal(true);
+        return false; // ⬅ TANPA LOGIN: GAGAL
       }
-    });
-  }, []);
+
+      setCartItems((prevItems) => {
+        const existing = prevItems.find((i) => i.id === item.id);
+        if (existing) {
+          return prevItems.map((i) =>
+            i.id === item.id
+              ? { ...i, quantity: i.quantity + (item.quantity || 1) }
+              : i
+          );
+        }
+        return [...prevItems, { ...item, quantity: item.quantity || 1 }];
+      });
+
+      return true; // ⬅ BERHASIL
+    },
+    [user]
+  );
 
   const removeFromCart = useCallback((itemId) => {
     setCartItems((prevItems) => prevItems.filter((i) => i.id !== itemId));
@@ -126,9 +134,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart(itemId);
       } else {
         setCartItems((prevItems) =>
-          prevItems.map((i) =>
-            i.id === itemId ? { ...i, quantity } : i
-          )
+          prevItems.map((i) => (i.id === itemId ? { ...i, quantity } : i))
         );
       }
     },
@@ -215,6 +221,14 @@ export const CartProvider = ({ children }) => {
         getFinalTotal,
       }}
     >
+      <LoginRequiredModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onLogin={() => {
+          setShowLoginModal(false);
+          window.location.href = "/login";
+        }}
+      />
       {children}
     </CartContext.Provider>
   );

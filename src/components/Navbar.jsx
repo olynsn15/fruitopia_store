@@ -44,7 +44,9 @@ const Navbar = () => {
       .toUpperCase();
   };
 
-  const visibleMenuLinks = MenuLinks;
+  const visibleMenuLinks = isAuthenticated
+    ? MenuLinks
+    : MenuLinks.filter((item) => [1, 2].includes(item.id));
 
   return (
     <>

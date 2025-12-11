@@ -86,7 +86,9 @@ function Shop() {
   };
 
   const handleQuickAddToCart = (fruit) => {
-    addToCart({ ...fruit, quantity: 1 });
+    const success = addToCart({ ...fruit, quantity: 1 });
+    if (!success) return;
+
     showNotification(
       `${fruit.name} added to cart! (${applyDiscountedPrice(
         fruit
@@ -95,12 +97,15 @@ function Shop() {
   };
 
   const handleAddToCart = (fruit) => {
-    addToCart({ ...fruit, quantity });
+    const success = addToCart({ ...fruit, quantity });
+    if (!success) return;
+
     showNotification(
       `${fruit.name} x${quantity} added to cart! (${applyDiscountedPrice(
         fruit
       ).toLocaleString("id-ID")} each)`
     );
+
     setSelectedFruit(null);
     setQuantity(1);
   };
@@ -156,7 +161,7 @@ function Shop() {
                   className="w-full h-full scale-110 object-contain group-hover:scale-110 transition-transform duration-300"
                 />
                 {hoveredId === fruit.id && (
-                  <div className="absolute inset-0 bg-[#007E6E] bg-opacity-40 flex flex-col items-center justify-center gap-3 transition-all duration-300">
+                  <div className="absolute inset-0 bg-[#007E6E] bg-opacity-40 flex flex-col items-center justify-center gap-3 transition-all duration-300 opacity-0 group-hover:opacity-100">
                     <button
                       onClick={() => setSelectedFruit(fruit)}
                       className="bg-white text-[#007E6E] font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center gap-2"
