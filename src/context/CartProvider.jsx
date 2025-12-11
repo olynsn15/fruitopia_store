@@ -100,7 +100,7 @@ export const CartProvider = ({ children }) => {
     (item) => {
       if (!user) {
         setShowLoginModal(true);
-        return;
+        return false; // ⬅️ Tambahkan ini
       }
 
       setCartItems((prev) => {
@@ -116,6 +116,8 @@ export const CartProvider = ({ children }) => {
 
         return [...prev, { ...item, quantity: item.quantity || 1 }];
       });
+
+      return true; // ⬅️ Return success
     },
     [user]
   );
