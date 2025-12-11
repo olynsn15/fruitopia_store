@@ -123,13 +123,7 @@ const Products = ({ onNotification = () => {} }) => {
                   <button
                     onClick={() => {
                       const success = addToCart({ ...item, quantity: 1 });
-                      if (!success) {
-                        // kalau addToCart return false → user belum login
-                        if (typeof onNotification === "function") {
-                          onNotification("login-required");
-                        }
-                        return;
-                      }
+                      if (!success) return;
 
                       showNotification(
                         `${item.name} added to cart! (Rp ${getPrice(
