@@ -188,6 +188,10 @@ export const CartProvider = ({ children }) => {
     return subtotal + shipping + tax;
   }, [selectedItems, getSelectedTotal, getShippingFee]);
 
+  const getTotalItems = () => {
+    return cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -203,6 +207,7 @@ export const CartProvider = ({ children }) => {
         getSelectedTotal,
         getShippingFee,
         getFinalTotal,
+        getTotalItems,
       }}
     >
       <LoginRequiredModal
