@@ -87,7 +87,10 @@ function Shop() {
 
   const handleQuickAddToCart = (fruit) => {
     const success = addToCart({ ...fruit, quantity: 1 });
-    if (!success) return;
+    if (!success) {
+      setShowLogin(true);
+      return;
+    }
 
     showNotification(
       `${fruit.name} added to cart! (${applyDiscountedPrice(
@@ -98,7 +101,10 @@ function Shop() {
 
   const handleAddToCart = (fruit) => {
     const success = addToCart({ ...fruit, quantity });
-    if (!success) return;
+    if (!success) {
+      setShowLogin(true);
+      return;
+    }
 
     showNotification(
       `${fruit.name} x${quantity} added to cart! (${applyDiscountedPrice(
