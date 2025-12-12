@@ -1,25 +1,11 @@
 import React from "react";
-import { useAuth } from "../hooks/useAuthHook";
-import { useDiscount } from "../context/DiscountContext";
+import { useNavigate } from "react-router-dom";
 
-const Banner = ({ data, onLoginRequired = () => {}, onNotification = () => {} }) => {
-  const { user } = useAuth();
-  const { applyDiscount } = useDiscount();
+const Banner = ({ data }) => {
+  const navigate = useNavigate();
 
-  const handleClaim = () => {
-    if (!user) {
-      if (typeof onLoginRequired === 'function') {
-        onLoginRequired();
-      }
-      return;
-    }
-
-    applyDiscount("Pineapple", 25, 18000);
-
-    // Tampilkan notifikasi via callback
-    if (typeof onNotification === 'function') {
-      onNotification("Pineapple discount claimed!");
-    }
+  const handleGoToShop = () => {
+    navigate("/shop");
   };
 
   return (
@@ -48,10 +34,10 @@ const Banner = ({ data, onLoginRequired = () => {}, onNotification = () => {} })
           <p className="text-sm tracking-wide leading-5">{data.title4}</p>
           <div>
             <button
-              onClick={handleClaim}
+              onClick={handleGoToShop}
               className="px-4 py-2 text-lg font-semibold border border-[#007E6E] text-[#007E6E] rounded-full transition-all duration-300 hover:bg-[#007E6E] hover:text-white"
             >
-              Claim Now
+              Go to Shop Now
             </button>
           </div>
         </div>

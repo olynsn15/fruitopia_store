@@ -6,6 +6,7 @@ import Products from "./Products";
 import Login from "./Login";
 import Register from "./Register";
 import Pineapple from "../assets/pineapple.png";
+import { useCart } from "../hooks/useCart";
 
 // Hook untuk deteksi element saat scroll
 const useScrollAnimation = () => {
@@ -153,12 +154,22 @@ const styles = `
 `;
 
 const HomePage = () => {
+  const { showLogin: cartShowLogin, setShowLogin: cartSetShowLogin, showRegister: cartShowRegister, setShowRegister: cartSetShowRegister } = useCart();
   const [isLoaded, setIsLoaded] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [notification, setNotification] = useState(null);
   const [fading, setFading] = useState(false);
   const visibleElements = useScrollAnimation();
+
+  // Sinkronkan state login/register dari cart context
+  useEffect(() => {
+    if (cartShowLogin) setShowLogin(true);
+  }, [cartShowLogin]);
+
+  useEffect(() => {
+    if (cartShowRegister) setShowRegister(true);
+  }, [cartShowRegister]);
 
   useEffect(() => {
     // Trigger animasi setelah component mount
@@ -247,22 +258,32 @@ const HomePage = () => {
         </div>
       )}
 
-      {showLogin && (
+      {(showLogin || cartShowLogin) && (
         <Login
-          onClose={() => setShowLogin(false)}
+          onClose={() => {
+            setShowLogin(false);
+            cartSetShowLogin(false);
+          }}
           switchToRegister={() => {
             setShowLogin(false);
+            cartSetShowLogin(false);
             setShowRegister(true);
+            cartSetShowRegister(true);
           }}
         />
       )}
 
-      {showRegister && (
+      {(showRegister || cartShowRegister) && (
         <Register
-          onClose={() => setShowRegister(false)}
+          onClose={() => {
+            setShowRegister(false);
+            cartSetShowRegister(false);
+          }}
           switchToLogin={() => {
             setShowRegister(false);
+            cartSetShowRegister(false);
             setShowLogin(true);
+            cartSetShowLogin(true);
           }}
         />
       )}

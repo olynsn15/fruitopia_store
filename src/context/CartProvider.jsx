@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import supabase from "../utils/supabase";
 import { useAuth } from "../hooks/useAuthHook";
-import LoginRequiredModal from "../components/LoginRequiredModal";
 
 export const CartProvider = ({ children }) => {
   const { user } = useAuth();
@@ -10,7 +9,8 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   /* ----------------------------------------------------
       LOAD CART — ONLY WHEN USER IS LOGGED IN
@@ -99,7 +99,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = useCallback(
     (item) => {
       if (!user) {
-        setShowLoginModal(true);
+        setShowLogin(true);
         return false; // ⬅️ Tambahkan ini
       }
 
@@ -210,13 +210,12 @@ export const CartProvider = ({ children }) => {
         getShippingFee,
         getFinalTotal,
         getTotalItems,
+        showLogin,
+        setShowLogin,
+        showRegister,
+        setShowRegister,
       }}
     >
-      <LoginRequiredModal
-        isOpen={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
-      />
-
       {children}
     </CartContext.Provider>
   );

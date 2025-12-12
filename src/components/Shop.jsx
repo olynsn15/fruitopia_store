@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import supabase from "../utils/supabase";
 import { useCart } from "../hooks/useCart";
 import { FaShoppingCart } from "react-icons/fa";
-import { useDiscount } from "../context/DiscountContext";
 import Login from "./Login";
 import Register from "./Register";
 
@@ -30,8 +29,7 @@ input[type="number"] {
 `;
 
 function Shop() {
-  const { addToCart } = useCart();
-  const { discounts } = useDiscount();
+  const { addToCart, showLogin, setShowLogin, showRegister, setShowRegister } = useCart();
 
   const [fruits, setFruits] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,8 +39,6 @@ function Shop() {
   const [notification, setNotification] = useState(null);
   const [fading, setFading] = useState(false);
   const [visibleCards, setVisibleCards] = useState({});
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
 
   // Fetch fruits
   useEffect(() => {
@@ -81,18 +77,16 @@ function Shop() {
     setTimeout(() => setNotification(null), 2500); // hapus notification setelah fade selesai
   };
 
-  const applyDiscountedPrice = (fruit) => {
-    return discounts[fruit.name] ?? fruit.price;
-  };
+
 
   const handleQuickAddToCart = (fruit) => {
     const success = addToCart({ ...fruit, quantity: 1 });
     if (!success) return;
 
     showNotification(
-      `${fruit.name} added to cart! (${applyDiscountedPrice(
-        fruit
-      ).toLocaleString("id-ID")} each)`
+      `${fruit.name} added to cart! (${fruit.price.toLocaleString(
+        "id-ID"
+      )} each)`
     );
   };
 
@@ -101,9 +95,9 @@ function Shop() {
     if (!success) return;
 
     showNotification(
-      `${fruit.name} x${quantity} added to cart! (${applyDiscountedPrice(
-        fruit
-      ).toLocaleString("id-ID")} each)`
+      `${fruit.name} x${quantity} added to cart! (${fruit.price.toLocaleString(
+        "id-ID"
+      )} each)`
     );
 
     setSelectedFruit(null);
@@ -183,7 +177,7 @@ function Shop() {
                   <span className="text-xl font-bold text-[#007E6E]">
                     Rp{" "}
                     {new Intl.NumberFormat("id-ID").format(
-                      applyDiscountedPrice(fruit)
+                      fruit.price
                     )}
                   </span>
                   <button
@@ -231,7 +225,7 @@ function Shop() {
               <p className="text-3xl font-bold text-[#007E6E]">
                 Rp{" "}
                 {new Intl.NumberFormat("id-ID").format(
-                  applyDiscountedPrice(selectedFruit)
+                  selectedFruit.price
                 )}
               </p>
 

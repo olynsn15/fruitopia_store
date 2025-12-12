@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import supabase from "../utils/supabase";
 import { useCart } from "../hooks/useCart";
-import { useDiscount } from "../context/DiscountContext";
 
 const productCardStyles = `
 @keyframes productSlideIn {
@@ -28,7 +27,6 @@ const productCardStyles = `
 
 const Products = ({ onNotification = () => {} }) => {
   const { addToCart } = useCart();
-  const { discounts } = useDiscount();
   const [productData, setProductData] = useState([]);
   const [animatingCards, setAnimatingCards] = useState({});
   const [visibleOnScroll, setVisibleOnScroll] = useState({});
@@ -81,9 +79,6 @@ const Products = ({ onNotification = () => {} }) => {
   };
 
   const getPrice = (product) => {
-    if (product.name === "Pineapple" && discounts["Pineapple"]) {
-      return discounts["Pineapple"];
-    }
     return product.price;
   };
 
@@ -113,7 +108,7 @@ const Products = ({ onNotification = () => {} }) => {
                 animatingCards[item.id] ? "" : "opacity-0"
               } ${visibleOnScroll[item.id] ? "visible" : ""}`}
             >
-              <div className="relative w-full h-50 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300">
+              <div className="relative w-full h-50 bg-linear-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300">
                 <img
                   src={item.image_url}
                   alt={item.name}
