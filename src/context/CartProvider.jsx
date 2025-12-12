@@ -4,7 +4,7 @@ import supabase from "../utils/supabase";
 import { useAuth } from "../hooks/useAuthHook";
 
 export const CartProvider = ({ children }) => {
-  const { user } = useAuth();
+  const { user, authReady } = useAuth();
 
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -16,6 +16,8 @@ export const CartProvider = ({ children }) => {
       LOAD CART — ONLY WHEN USER IS LOGGED IN
   ------------------------------------------------------ */
   useEffect(() => {
+    if (!authReady) return;
+
     const loadCart = async () => {
       try {
         if (!user) {

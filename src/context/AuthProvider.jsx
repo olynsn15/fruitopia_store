@@ -5,6 +5,7 @@ import { AuthContext } from "./AuthContextSetup";
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
 
   const formatUser = (u) => {
     if (!u) return null;
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         setUser(formatUser(sessionUser));
         setIsAuthenticated(true);
       }
+      setAuthReady(true);
     };
 
     loadInitial();
@@ -74,7 +76,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, login, register, logout, setUser }}
+      value={{
+        user,
+        isAuthenticated,
+        login,
+        register,
+        logout,
+        setUser,
+        authReady,
+      }}
     >
       {children}
     </AuthContext.Provider>
