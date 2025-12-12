@@ -77,12 +77,14 @@ const Hero = () => {
                       </h2>
                     </div>
                     
-                    <Link
-                      to="/shop"
-                      className="inline-block mt-3 sm:mt-4 md:mt-6 px-5 sm:px-6 md:px-8 py-2 sm:py-3 md:py-3 text-sm sm:text-base md:text-lg font-bold bg-[#007E6E] text-white rounded-lg sm:rounded-xl transition-all duration-300 hover:bg-[#005d52] hover:shadow-lg hover:scale-105 active:scale-95 w-fit"
-                    >
-                      Shop Now
-                    </Link>
+                    <div className="flex justify-center sm:justify-start mt-3 sm:mt-4 md:mt-6">
+                      <Link
+                        to="/shop"
+                        className="inline-block px-5 sm:px-6 md:px-8 py-2 sm:py-3 md:py-3 text-sm sm:text-base md:text-lg font-bold bg-[#007E6E] text-white rounded-lg sm:rounded-xl transition-all duration-300 hover:bg-[#005d52] hover:shadow-lg hover:scale-105 active:scale-95"
+                      >
+                        Shop Now
+                      </Link>
+                    </div>
                   </div>
 
                   {/* Image Section */}

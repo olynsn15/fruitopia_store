@@ -96,9 +96,8 @@ const Navbar = () => {
                 )}
               </button>
 
-              {/* Profile Icon / Auth Buttons - Visible on all devices */}
-              {isAuthenticated ? (
-                /* Authenticated User - Profile Icon */
+              {/* Profile Icon - Show for authenticated users on all devices */}
+              {isAuthenticated && (
                 <button
                   onClick={() => setShowProfile(true)}
                   className="w-9 sm:w-10 h-9 sm:h-10 rounded-full bg-[#007E6E] text-white font-bold flex items-center justify-center hover:bg-[#006456] transition text-xs sm:text-sm shadow-md hover:shadow-lg"
@@ -106,9 +105,11 @@ const Navbar = () => {
                 >
                   {getInitials()}
                 </button>
-              ) : (
-                /* Non-Authenticated User - Auth Buttons */
-                <div className="flex items-center gap-2 sm:gap-3">
+              )}
+
+              {/* Auth Buttons - Only show on desktop for non-authenticated users */}
+              {!isAuthenticated && (
+                <div className="hidden sm:flex items-center gap-2 sm:gap-3">
                   <button
                     onClick={() => setShowLogin(true)}
                     className="px-2.5 sm:px-3 py-1.5 sm:py-2 bg-gray-200 text-black border border-[#007E6E] rounded-md text-xs sm:text-sm font-semibold tracking-wide hover:bg-[#a5c1bd] transition whitespace-nowrap"
@@ -157,20 +158,26 @@ const Navbar = () => {
                 ))}
               </ul>
 
-              {/* Mobile Profile Section - Only show when authenticated */}
-              {isAuthenticated && (
-                <div className="mt-4 pt-4 border-t border-gray-200">
+              {/* Mobile Auth Section - Only show login/register for non-authenticated users */}
+              {!isAuthenticated && (
+                <div className="mt-4 pt-4 border-t border-gray-200 sm:hidden flex flex-col gap-2">
                   <button
                     onClick={() => {
-                      setShowProfile(true);
+                      setShowLogin(true);
                       setShowMobileMenu(false);
                     }}
-                    className="w-full px-4 py-2 flex items-center gap-3 bg-[#007E6E] text-white rounded-md text-sm font-semibold hover:bg-[#006456] transition"
+                    className="w-full px-4 py-2 bg-gray-200 text-black border border-[#007E6E] rounded-md text-sm font-semibold hover:bg-[#a5c1bd] transition"
                   >
-                    <div className="w-8 h-8 rounded-full bg-white text-[#007E6E] font-bold flex items-center justify-center text-xs">
-                      {getInitials()}
-                    </div>
-                    <span>View Profile</span>
+                    Login
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowRegister(true);
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full px-4 py-2 bg-[#007E6E] text-white rounded-md text-sm font-semibold hover:bg-[#006456] transition"
+                  >
+                    Register
                   </button>
                 </div>
               )}
