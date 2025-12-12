@@ -55,7 +55,7 @@ export const CartProvider = ({ children }) => {
     };
 
     loadCart();
-  }, [user]);
+  }, [user, authReady]);
 
   /* ----------------------------------------------------
       SAVE CART TO SUPABASE — ONLY WHEN LOGGED IN
@@ -150,6 +150,20 @@ export const CartProvider = ({ children }) => {
   /* ----------------------------------------------------
       SELECTED ITEMS & TOTALS
   ------------------------------------------------------ */
+  const getSelectedQuantity = useCallback(
+    (id) => {
+      const item = cartItems.find((i) => i.id === id);
+      return item ? item.quantity : 0;
+    },
+    [cartItems]
+  );
+
+  const getTotalSelectedQuantity = useCallback(() => {
+    return cartItems
+      .filter((i) => selectedItems.includes(i.id))
+      .reduce((sum, i) => sum + i.quantity, 0);
+  }, [cartItems, selectedItems]);
+
   const toggleSelectItem = useCallback((id) => {
     setSelectedItems((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
@@ -205,6 +219,8 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         clearCart,
         selectedItems,
+        getSelectedQuantity,
+        getTotalSelectedQuantity,
         toggleSelectItem,
         selectAllItems,
         clearSelectedItems,

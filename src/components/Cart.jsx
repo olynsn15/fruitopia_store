@@ -33,7 +33,7 @@ const Cart = () => {
     selectAllItems,
     clearSelectedItems,
     getSelectedTotal,
-    getSelectedQuantity,
+    getTotalSelectedQuantity,
     getShippingFee,
     getFinalTotal,
   } = useCart();
@@ -53,7 +53,7 @@ const Cart = () => {
   const handleProceedToCheckout = () => {
     if (selectedItems.length === 0) return;
 
-    const totalQuantity = getSelectedQuantity();
+    const totalQuantity = getTotalSelectedQuantity();
     const totalPrice = getSelectedTotal();
 
     // Tampilkan notifikasi dulu
@@ -136,8 +136,8 @@ const Cart = () => {
             {selectedItems.length > 0 && (
               <div className="ml-auto flex items-center gap-4">
                 <span className="text-sm text-gray-600">
-                  {getSelectedQuantity()} item
-                  {getSelectedQuantity() !== 1 ? "s" : ""} selected
+                  {getTotalSelectedQuantity()} item
+                  {getTotalSelectedQuantity() !== 1 ? "s" : ""} selected
                 </span>
               </div>
             )}
@@ -235,7 +235,7 @@ const Cart = () => {
                 <div className="mb-6 pb-6 border-b border-white/20">
                   <p className="text-sm text-white/80 mb-2">Selected Items</p>
                   <p className="text-2xl font-bold">
-                    {getSelectedQuantity()} items selected
+                    {getTotalSelectedQuantity()} items selected
                   </p>
                 </div>
               )}
@@ -243,7 +243,7 @@ const Cart = () => {
               {selectedItems.length > 0 && (
                 <>
                   <div className="flex justify-between mb-4 pb-4 border-b border-white/20">
-                    <span>Subtotal ({getSelectedQuantity()} items)</span>
+                    <span>Subtotal ({getTotalSelectedQuantity()} items)</span>
                     <span className="font-semibold">
                       Rp{" "}
                       {new Intl.NumberFormat("id-ID").format(
