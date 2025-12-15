@@ -183,7 +183,7 @@ const HomePage = () => {
     <>
       <style>{styles}</style>
 
-      <div className="w-full px-4 sm:px-10 mx-auto">
+      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8 mx-auto">
         <div
           className={`${
             isLoaded ? "opacity-100" : "opacity-0"
@@ -245,14 +245,14 @@ const HomePage = () => {
       {/* Notification Modal */}
       {notification && (
         <div
-          className={`fixed inset-0 z-40 flex items-center justify-center pointer-events-none transition-opacity duration-500 ${
+          className={`fixed inset-0 z-40 flex items-center justify-center pointer-events-none transition-opacity duration-500 px-4 ${
             fading ? "opacity-0" : "opacity-100"
           }`}
         >
-          <div className="bg-green-500 text-white px-8 py-5 rounded-lg shadow-2xl flex items-center gap-3">
-            <div className="text-3xl">✓</div>
-            <div>
-              <p className="font-semibold text-lg">{notification}</p>
+          <div className="bg-green-500 text-white px-6 sm:px-8 py-4 sm:py-5 rounded-lg shadow-2xl flex items-center gap-2 sm:gap-3 max-w-md w-full">
+            <div className="text-2xl sm:text-3xl flex-shrink-0">✓</div>
+            <div className="min-w-0">
+              <p className="font-semibold text-sm sm:text-base md:text-lg break-words">{notification}</p>
             </div>
           </div>
         </div>

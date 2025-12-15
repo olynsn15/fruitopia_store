@@ -85,20 +85,19 @@ const Products = ({ onNotification = () => {} }) => {
   return (
     <>
       <style>{productCardStyles}</style>
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-screen-2xl my-12 sm:my-14 md:my-20">
-        <div className="text-center mb-10 sm:mb-12 md:mb-16 max-w-[600px] mx-auto space-y-3">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-screen-2xl my-8 sm:my-12 md:my-16 lg:my-20 w-full">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 max-w-[600px] mx-auto space-y-2 sm:space-y-3 px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black break-words">
             Our Products
           </h1>
-          <p className="text-gray-500 text-sm sm:text-base md:text-lg">
-            Explore our wide range of fresh and delicious fruits, handpicked for
-            you.
+          <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-3">
+            Explore our wide range of fresh and delicious fruits, handpicked for you.
           </p>
         </div>
 
         <div
           ref={containerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 md:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6"
         >
           {productData.map((item) => (
             <div
@@ -108,13 +107,13 @@ const Products = ({ onNotification = () => {} }) => {
                 animatingCards[item.id] ? "" : "opacity-0"
               } ${visibleOnScroll[item.id] ? "visible" : ""}`}
             >
-              <div className="relative w-full h-50 bg-linear-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300">
+              <div className="relative w-full h-32 sm:h-40 md:h-48 lg:h-56 bg-linear-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300">
                 <img
                   src={item.image_url}
                   alt={item.name}
-                  className="w-50 h-50 object-cover rounded transition-all duration-300 group-hover:scale-105"
+                  className="w-full h-full object-contain rounded transition-all duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 flex flex-col items-center justify-center -translate-y-full group-hover:translate-y-0 transition-all duration-300 bg-[#007E6E] bg-opacity-85 backdrop-blur-sm space-y-3 rounded-2xl sm:rounded-3xl">
+                <div className="absolute inset-0 flex flex-col items-center justify-center -translate-y-full group-hover:translate-y-0 transition-all duration-300 bg-[#007E6E] bg-opacity-85 backdrop-blur-sm space-y-2 sm:space-y-3 rounded-2xl sm:rounded-3xl">
                   <button
                     onClick={() => {
                       const success = addToCart({ ...item, quantity: 1 });
@@ -126,17 +125,17 @@ const Products = ({ onNotification = () => {} }) => {
                         ).toLocaleString("id-ID")} each)`
                       );
                     }}
-                    className="text-[#007E6E] font-bold py-2 sm:py-3 px-6 sm:px-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all duration-300 backdrop-blur-sm"
+                    className="text-[#007E6E] font-bold py-1.5 sm:py-2 md:py-3 px-4 sm:px-6 md:px-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg transition-all duration-300 backdrop-blur-sm text-xs sm:text-sm md:text-base whitespace-nowrap"
                   >
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <div className="mt-4 sm:mt-5">
-                <h2 className="font-bold text-lg sm:text-xl text-black">
+              <div className="mt-3 sm:mt-4 md:mt-5 min-w-0">
+                <h2 className="font-bold text-sm sm:text-base md:text-lg lg:text-xl text-black line-clamp-2 break-words">
                   {item.name}
                 </h2>
-                <p className="text-[#007E6E] font-semibold text-sm sm:text-base mt-1">
+                <p className="text-[#007E6E] font-semibold text-xs sm:text-sm md:text-base mt-1 truncate">
                   Rp {new Intl.NumberFormat("id-ID").format(getPrice(item))}
                 </p>
               </div>

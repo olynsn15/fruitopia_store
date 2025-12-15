@@ -137,17 +137,17 @@ const Testimonials = () => {
 
   return (
     <>
-      <div className="w-full px-4 sm:px-6 md:px-8 mx-auto py-12 sm:py-16 md:py-20">
+      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8 mx-auto py-8 sm:py-12 md:py-16 lg:py-20">
         <div
-          className="text-center mb-10 sm:mb-12 md:mb-16 animate-fade-in"
+          className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 animate-fade-in px-2"
           style={{
             animation: "fadeInScale 0.6s ease-out",
           }}
         >
-          <h1 className="text-4xl sm:text-5xl font-bold text-black mb-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-2 sm:mb-3 break-words">
             Customer Testimonials
           </h1>
-          <p className="text-gray-500 text-sm sm:text-base md:text-lg">
+          <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-2">
             Hear what our satisfied customers have to say about Fruitopia
           </p>
         </div>
@@ -155,30 +155,30 @@ const Testimonials = () => {
         {/* Form Submit Testimonial */}
         {isAuthenticated ? (
           <div
-            className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg p-4 sm:p-6 mb-10 shadow"
+            className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg p-3 sm:p-4 md:p-6 mb-8 sm:mb-10 shadow"
             style={{
               animation: "fadeInScale 0.6s ease-out 0.2s forwards",
             }}
           >
-            <h3 className="text-xl font-semibold mb-4 text-[#007E6E]">
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-3 sm:mb-4 text-[#007E6E]">
               Share Your Experience
             </h3>
 
             {error && (
-              <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-sm">
+              <div className="mb-4 p-2 sm:p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-xs sm:text-sm">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
                   Rating
                 </label>
                 <select
                   value={rating}
                   onChange={(e) => setRating(e.target.value)}
-                  className="w-full px-4 py-2 pl-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:border-[#007E6E]"
+                  className="w-full px-3 sm:px-4 py-2 pl-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:border-[#007E6E] text-sm"
                 >
                   {[1, 2, 3, 4, 5].map((r) => (
                     <option key={r} value={r}>
@@ -189,7 +189,7 @@ const Testimonials = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
                   Your Message
                 </label>
                 <textarea
@@ -197,22 +197,22 @@ const Testimonials = () => {
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Share your experience with us..."
                   rows="4"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#007E6E]"
+                  className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#007E6E] text-sm"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#007E6E] text-white font-semibold py-2 rounded-md hover:bg-[#006456] transition disabled:opacity-50"
+                className="w-full bg-[#007E6E] text-white font-semibold py-2 rounded-md hover:bg-[#006456] transition disabled:opacity-50 text-sm"
               >
                 {loading ? "Submitting..." : "Submit Testimonial"}
               </button>
             </form>
           </div>
         ) : (
-          <div className="max-w-2xl mx-auto bg-blue-50 border border-blue-200 rounded-lg p-6 mb-10 text-center">
-            <p className="text-blue-800">
+          <div className="max-w-2xl mx-auto bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 mb-8 sm:mb-10 text-center">
+            <p className="text-blue-800 text-sm sm:text-base">
               Please log in to submit a testimonial
             </p>
           </div>
@@ -220,35 +220,37 @@ const Testimonials = () => {
 
         {/* Display Testimonials */}
         {loading ? (
-          <div className="text-center py-10">Loading testimonials...</div>
+          <div className="text-center py-8 sm:py-10">
+            <p className="text-sm sm:text-base">Loading testimonials...</p>
+          </div>
         ) : (
-          <div className="w-full px-0 sm:px-10 mx-auto">
+          <div className="w-full px-0 sm:px-4 md:px-8 mx-auto">
             {/* User's Own Testimonials */}
             {user &&
               testimonials.filter((t) => t.user_id === user.id).length > 0 && (
-                <div className="mb-12">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-8">
+                <div className="mb-10 sm:mb-12">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-8 break-words">
                     Your Reviews
                   </h2>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                     {testimonials
                       .filter((t) => t.user_id === user.id)
                       .map((testi) => (
                         <div
                           key={testi.id}
-                          className="bg-linear-to-br from-[#007E6E]/10 to-[#007E6E]/5 p-6 rounded-lg shadow border-2 border-[#007E6E] relative"
+                          className="bg-linear-to-br from-[#007E6E]/10 to-[#007E6E]/5 p-4 sm:p-6 rounded-lg shadow border-2 border-[#007E6E] relative overflow-hidden"
                         >
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center flex-1">
-                              <div className="w-12 h-12 bg-[#007E6E] rounded-full mr-4 flex items-center justify-center text-white font-bold">
+                          <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2 min-w-0">
+                            <div className="flex items-start gap-2 sm:gap-4 min-w-0 flex-1">
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#007E6E] rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0">
                                 {testi.display_name?.charAt(0).toUpperCase()}
                               </div>
-                              <div>
-                                <h3 className="font-semibold">
+                              <div className="min-w-0 flex-1">
+                                <h3 className="font-semibold text-sm sm:text-base break-words">
                                   {testi.display_name}
                                 </h3>
-                                <p className="text-sm text-gray-500">
+                                <p className="text-xs sm:text-sm text-gray-500">
                                   {new Date(
                                     testi.created_at
                                   ).toLocaleDateString()}
@@ -260,19 +262,19 @@ const Testimonials = () => {
                               onClick={() =>
                                 handleDeleteClick(testi.id, testi.user_id)
                               }
-                              className="text-red-600 hover:text-red-800 text-lg"
+                              className="text-red-600 hover:text-red-800 text-lg flex-shrink-0"
                               title="Delete"
                             >
                               ✕
                             </button>
                           </div>
 
-                          <div className="text-yellow-400 mb-2">
+                          <div className="text-yellow-400 mb-2 text-sm">
                             {"★".repeat(testi.rating)}
                             {"☆".repeat(5 - testi.rating)}
                           </div>
 
-                          <p className="text-gray-600 text-sm">
+                          <p className="text-gray-600 text-xs sm:text-sm line-clamp-4">
                             {testi.message}
                           </p>
                         </div>
@@ -283,11 +285,11 @@ const Testimonials = () => {
 
             {/* Other Users' Testimonials */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-8">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-8 break-words">
                 Community Reviews
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                 {testimonials.filter((t) => !user || t.user_id !== user.id)
                   .length > 0 ? (
                   testimonials
@@ -295,9 +297,9 @@ const Testimonials = () => {
                     .map((testi) => (
                       <div
                         key={testi.id}
-                        className="bg-gray-100 p-6 rounded-lg shadow relative"
+                        className="bg-gray-100 p-4 sm:p-6 rounded-lg shadow relative overflow-hidden"
                       >
-                        <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2 min-w-0">
                           <div className="flex items-center flex-1">
                             <div className="w-12 h-12 bg-[#007E6E] rounded-full mr-4 flex items-center justify-center text-white font-bold">
                               {testi.display_name?.charAt(0).toUpperCase()}

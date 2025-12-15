@@ -81,21 +81,21 @@ const Cart = () => {
     return (
       <>
         <style>{cartStyles}</style>
-        <div className="w-full px-1 sm:px-10 mx-auto">
-          <div className="min-h-screen py-12">
-            <div className="text-center py-20">
-              <div className="inline-block p-6 bg-gray-100 rounded-full mb-6">
-                <FaShoppingCart size={60} className="text-gray-400" />
+        <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8 mx-auto">
+          <div className="min-h-screen py-8 sm:py-12">
+            <div className="text-center py-16 sm:py-20 px-4">
+              <div className="inline-block p-4 sm:p-6 bg-gray-100 rounded-full mb-4 sm:mb-6">
+                <FaShoppingCart size={48} className="text-gray-400 sm:text-6xl" />
               </div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 break-words">
                 Your Cart is Empty
               </h1>
-              <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">
+              <p className="text-gray-600 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-md mx-auto">
                 Looks like you haven't added any items to your cart yet.
               </p>
               <Link
                 to="/shop"
-                className="inline-block bg-[#007E6E] hover:bg-[#005d52] text-white font-bold py-3 px-8 rounded-lg transition-colors duration-200"
+                className="inline-block bg-[#007E6E] hover:bg-[#005d52] text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-lg transition-colors duration-200 text-sm sm:text-base"
               >
                 Continue Shopping
               </Link>
@@ -109,33 +109,33 @@ const Cart = () => {
   return (
     <>
       <style>{cartStyles}</style>
-      <div className="w-full px-4 sm:px-10 mx-auto py-8 sm:py-12">
+      <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8 mx-auto py-6 sm:py-8 md:py-12">
         <div>
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-black mb-2">
+          <div className="mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-1 sm:mb-2 break-words">
               Shopping Cart
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-sm sm:text-base">
               {getTotalItems()} items in your cart
             </p>
           </div>
 
-          <div className="mb-6 flex gap-4">
+          <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row gap-2 sm:gap-4">
             <button
               onClick={selectAllItems}
-              className="px-4 py-2 bg-[#007E6E] hover:bg-[#005d52] text-white rounded-lg font-semibold transition"
+              className="px-3 sm:px-4 py-2 bg-[#007E6E] hover:bg-[#005d52] text-white rounded-lg font-semibold transition text-xs sm:text-sm"
             >
               Select All
             </button>
             <button
               onClick={clearSelectedItems}
-              className="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-lg font-semibold transition"
+              className="px-3 sm:px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-lg font-semibold transition text-xs sm:text-sm"
             >
               Deselect All
             </button>
             {selectedItems.length > 0 && (
-              <div className="ml-auto flex items-center gap-4">
-                <span className="text-sm text-gray-600">
+              <div className="sm:ml-auto flex items-center gap-4">
+                <span className="text-xs sm:text-sm text-gray-600">
                   {getTotalSelectedQuantity()} item
                   {getTotalSelectedQuantity() !== 1 ? "s" : ""} selected
                 </span>
@@ -143,12 +143,12 @@ const Cart = () => {
             )}
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8">
-            <div className="w-full lg:flex-1 space-y-4">
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
+            <div className="w-full lg:flex-1 space-y-3 sm:space-y-4">
               {cart.map((item, index) => (
                 <div
                   key={item.id}
-                  className={`cart-item bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 ${
+                  className={`cart-item bg-white border border-gray-200 rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 ${
                     selectedItems.includes(item.id) ? "selected" : ""
                   }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
@@ -157,9 +157,9 @@ const Cart = () => {
                     type="checkbox"
                     checked={selectedItems.includes(item.id)}
                     onChange={() => toggleSelectItem(item.id)}
-                    className="checkbox-item w-5 h-5 rounded mt-1 shrink-0"
+                    className="checkbox-item w-5 h-5 rounded mt-1 flex-shrink-0"
                   />
-                  <div className="w-full sm:w-32 h-32 bg-gray-100 rounded-xl overflow-hidden shrink-0">
+                  <div className="w-full sm:w-24 md:w-32 h-24 md:h-32 bg-gray-100 rounded-xl overflow-hidden flex-shrink-0">
                     <img
                       src={item.image_url}
                       alt={item.name}
@@ -167,49 +167,49 @@ const Cart = () => {
                     />
                   </div>
 
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start mb-2 sm:mb-3 gap-2">
+                      <div className="min-w-0">
+                        <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 break-words">
                           {item.name}
                         </h3>
-                        <p className="text-[#007E6E] font-semibold text-lg">
+                        <p className="text-[#007E6E] font-semibold text-sm md:text-lg truncate">
                           Rp {new Intl.NumberFormat("id-ID").format(item.price)}
                         </p>
                       </div>
                       <button
                         onClick={() => handleDeleteClick(item.id, item.name)}
-                        className="text-red-500 hover:text-red-700 transition-colors p-2"
+                        className="text-red-500 hover:text-red-700 transition-colors p-1 sm:p-2 flex-shrink-0"
                       >
-                        <FaTrash size={18} />
+                        <FaTrash size={16} className="sm:w-[18px] sm:h-[18px]" />
                       </button>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <span className="text-gray-600 text-sm">Quantity:</span>
+                    <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <span className="text-gray-600 text-xs sm:text-sm whitespace-nowrap">Qty:</span>
                       <button
                         onClick={() =>
                           updateQuantity(item.id, item.quantity - 1)
                         }
-                        className="quantity-btn bg-gray-200 text-gray-800 font-bold py-1 px-3 rounded-lg"
+                        className="quantity-btn bg-gray-200 text-gray-800 font-bold py-1 px-2 sm:px-3 rounded-lg text-sm"
                       >
                         −
                       </button>
-                      <span className="w-8 text-center font-semibold">
+                      <span className="w-6 text-center font-semibold text-sm">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() =>
                           updateQuantity(item.id, item.quantity + 1)
                         }
-                        className="quantity-btn bg-gray-200 text-gray-800 font-bold py-1 px-3 rounded-lg"
+                        className="quantity-btn bg-gray-200 text-gray-800 font-bold py-1 px-2 sm:px-3 rounded-lg text-sm"
                       >
                         +
                       </button>
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-gray-600 text-sm">
+                    <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200">
+                      <p className="text-gray-600 text-xs sm:text-sm">
                         Subtotal:{" "}
                         <span className="font-bold text-[#007E6E]">
                           Rp{" "}
@@ -224,17 +224,17 @@ const Cart = () => {
               ))}
             </div>
 
-            <div className="w-full lg:w-96 bg-linear-to-br from-[#007E6E] to-[#005d52] rounded-2xl p-6 sm:p-8 text-white sticky top-20 lg:top-24 h-fit">
-              <h2 className="text-2xl font-bold mb-6">
+            <div className="w-full lg:w-80 xl:w-96 bg-linear-to-br from-[#007E6E] to-[#005d52] rounded-2xl p-4 sm:p-6 md:p-8 text-white sticky top-20 lg:top-24 h-fit">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 break-words">
                 {selectedItems.length > 0
                   ? "Checkout Summary"
                   : "Order Summary"}
               </h2>
 
               {selectedItems.length > 0 && (
-                <div className="mb-6 pb-6 border-b border-white/20">
-                  <p className="text-sm text-white/80 mb-2">Selected Items</p>
-                  <p className="text-2xl font-bold">
+                <div className="mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-white/20">
+                  <p className="text-xs sm:text-sm text-white/80 mb-1 sm:mb-2">Selected Items</p>
+                  <p className="text-xl sm:text-2xl font-bold">
                     {getTotalSelectedQuantity()} items selected
                   </p>
                 </div>
@@ -242,9 +242,9 @@ const Cart = () => {
 
               {selectedItems.length > 0 && (
                 <>
-                  <div className="flex justify-between mb-4 pb-4 border-b border-white/20">
+                  <div className="flex justify-between mb-3 sm:mb-4 pb-3 sm:pb-4 border-b border-white/20 text-sm sm:text-base">
                     <span>Subtotal ({getTotalSelectedQuantity()} items)</span>
-                    <span className="font-semibold">
+                    <span className="font-semibold truncate">
                       Rp{" "}
                       {new Intl.NumberFormat("id-ID").format(
                         getSelectedTotal()

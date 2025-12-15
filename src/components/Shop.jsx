@@ -242,13 +242,14 @@ function Shop() {
                     type="number"
                     value={quantity}
                     onChange={(e) =>
-                      setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+                      setQuantity(Math.min(100, Math.max(1, parseInt(e.target.value) || 1)))
                     }
                     className="w-12 text-center font-semibold text-gray-800 border border-gray-300 rounded-md py-2 px-2 focus:outline-none focus:border-[#007E6E] focus:ring-1 focus:ring-[#007E6E] bg-white"
                     min="1"
+                    max="100"
                   />
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
+                    onClick={() => setQuantity(Math.min(100, quantity + 1))}
                     className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition-colors"
                   >
                     +

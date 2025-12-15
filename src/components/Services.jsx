@@ -101,23 +101,25 @@ const Services = () => {
   return(
     <>
       <style>{cardAnimationStyles}</style>
-      <div ref={containerRef} className="container mx-auto px-4 sm:px-1 md:px-2 max-w-screen-2xl my-12 sm:my-14 md:my-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-8 justify-center">
+      <div ref={containerRef} className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-screen-2xl my-8 sm:my-12 md:my-16 lg:my-20 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 gap-y-6 sm:gap-y-8 md:gap-y-10 justify-center">
           {
             ServiceData.map((data) => (
               <div
                 key={data.id}
                 data-card-id={data.id}
-                className={`flex flex-col items-center sm:flex-row gap-4 px-4 text-center sm:text-left card-scroll-animate ${
+                className={`flex flex-col items-center sm:flex-col gap-3 sm:gap-4 px-2 sm:px-3 md:px-4 text-center sm:text-center card-scroll-animate ${
                   animatingCards[data.id] ? '' : 'opacity-0'
                 } ${visibleOnScroll[data.id] ? 'visible' : ''}`}
               >
-                {data.icon}
-                <div>
-                  <h1 className="lg:text-xl font-bold">
+                <div className="text-3xl sm:text-4xl md:text-5xl text-[#007E6E] flex-shrink-0">
+                  {data.icon.props.children}
+                </div>
+                <div className="min-w-0">
+                  <h1 className="text-base sm:text-lg md:text-xl lg:text-xl font-bold break-words">
                     {data.title}
                   </h1>
-                  <h1 className="text-gray-400 text-sm">
+                  <h1 className="text-gray-400 text-xs sm:text-sm md:text-base line-clamp-2">
                     {data.desc}
                   </h1>
                 </div>
